@@ -7,7 +7,7 @@ export default function Pillars() {
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
           <p className="text-center text-sm font-bold uppercase tracking-wider text-blue">
-            Cómo funciona
+            Los fundamentos
           </p>
           <h2 className="mx-auto mt-3 max-w-2xl text-balance text-center text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
             Tres ideas sostienen todo el sistema.

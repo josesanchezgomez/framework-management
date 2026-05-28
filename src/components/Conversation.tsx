@@ -78,11 +78,14 @@ export default function Conversation() {
                     <div className="mt-3 flex flex-wrap gap-2">
                       {ex.outputs.map((o) => (
                         <span
-                          key={o}
-                          className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700"
+                          key={o.label}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 py-1 pl-3 pr-1.5 text-xs font-medium text-emerald-700"
                         >
                           <FileCheck2 className="h-3.5 w-3.5" />
-                          {o}
+                          {o.label}
+                          <span className="rounded-full bg-emerald-600/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-800">
+                            {o.format}
+                          </span>
                         </span>
                       ))}
                     </div>

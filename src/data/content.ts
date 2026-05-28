@@ -18,6 +18,9 @@ import {
   Rocket,
   FileSignature,
   ScrollText,
+  MessageSquare,
+  Workflow,
+  Layers,
   type LucideIcon,
 } from "lucide-react";
 
@@ -38,6 +41,7 @@ export const hero = {
     "15 capacidades automatizadas",
     "Memoria persistente",
     "Ciclo semanal vivo",
+    "Tu infraestructura · tu modelo",
   ],
 };
 
@@ -244,11 +248,16 @@ export const weeklyCycle = {
 };
 
 // --- Conversaciones de ejemplo (cómo se siente) -----------------------------
+export interface ChatOutput {
+  label: string;
+  format: string;
+}
+
 export interface ChatExample {
   title: string;
   pm: string;
   system: string;
-  outputs: string[];
+  outputs: ChatOutput[];
 }
 
 export const conversations = {
@@ -262,9 +271,20 @@ export const conversations = {
       system:
         "Marco la fase de análisis como finalizada y desplazo la integración. He recalculado las fechas de todo lo que depende de ella y actualizado los riesgos asociados.",
       outputs: [
-        "Planificación reprogramada",
-        "Camino crítico recalculado",
-        "Riesgo actualizado",
+        { label: "Planificación reprogramada", format: "Excel" },
+        { label: "Camino crítico recalculado", format: "Excel" },
+        { label: "Riesgo actualizado", format: "Excel · 2 versiones" },
+      ],
+    },
+    {
+      title: "Arranque de proyecto",
+      pm: "Acabamos de firmar la propuesta con el cliente. Móntame la planificación del proyecto a partir de ella.",
+      system:
+        "Descompongo el alcance en fases, épicas y tareas, calculo el calendario con sus dependencias e identifico qué no puede retrasarse sin mover el Go-Live. Quedan listas las evidencias base, conectadas entre sí.",
+      outputs: [
+        { label: "Desglose del trabajo", format: "Excel" },
+        { label: "Planificación temporal", format: "Excel" },
+        { label: "Camino crítico", format: "Excel" },
       ],
     },
     {
@@ -272,14 +292,39 @@ export const conversations = {
       pm: "El interlocutor de negocio estará de baja dos semanas. Es quien valida los requisitos funcionales.",
       system:
         "Lo registro como riesgo de alto impacto sobre la validación funcional, con un plan de mitigación propuesto, y lo reflejo en la versión que comparte con el cliente con lenguaje neutro.",
-      outputs: ["Riesgo nuevo priorizado", "Versión cliente generada"],
+      outputs: [
+        { label: "Riesgo nuevo priorizado", format: "Excel" },
+        { label: "Versión cliente generada", format: "Excel" },
+      ],
+    },
+    {
+      title: "Acta de reunión",
+      pm: "Te paso la transcripción de la sesión de hoy con el cliente. Sácame el acta.",
+      system:
+        "Genero el acta formal con los asistentes, los temas tratados y las decisiones, acciones y cuestiones abiertas, cada una identificada y numerada para su seguimiento posterior.",
+      outputs: [
+        { label: "Acta formal", format: "Word" },
+        { label: "Decisiones y acciones trazadas", format: "incluido" },
+      ],
+    },
+    {
+      title: "Pregunta al proyecto",
+      pm: "¿Qué decidimos al final sobre el alcance del módulo de nóminas y por qué?",
+      system:
+        "Recupero la decisión, su fecha y el razonamiento que la motivó. El proyecto recuerda cada decisión con su porqué, aunque se tomara hace semanas o la planteara otra persona.",
+      outputs: [
+        { label: "Respuesta con su contexto", format: "al instante" },
+      ],
     },
     {
       title: "Preparar dirección",
       pm: "Prepárame el informe para el comité de seguimiento del jueves.",
       system:
         "Construyo el informe ejecutivo con el avance, las desviaciones y las decisiones acumuladas de las últimas semanas. Te dejo el documento detallado y la presentación para la reunión.",
-      outputs: ["Informe ejecutivo", "Presentación de comité"],
+      outputs: [
+        { label: "Informe ejecutivo", format: "Word" },
+        { label: "Presentación de comité", format: "PowerPoint" },
+      ],
     },
   ] as ChatExample[],
 };
@@ -305,11 +350,11 @@ export const advantages = {
     },
     {
       title: "Memoria que no se pierde",
-      body: "Decisiones, riesgos y correcciones quedan registrados con su porqué. El contexto del proyecto sobrevive a las personas.",
+      body: "Cada decisión, riesgo y corrección queda registrada con su porqué, no solo el qué. Puedes preguntar al proyecto en lenguaje natural y obtener la respuesta con su contexto, aunque se decidiera hace meses. El conocimiento del proyecto sobrevive a las personas y a las vacaciones.",
     },
     {
       title: "Visión de portfolio",
-      body: "Con varios proyectos a la vez, detecta conflictos de recursos, solapes de hitos y patrones de riesgo que se repiten.",
+      body: "Con varios proyectos a la vez, mira por encima de todos ellos: detecta conflictos de recursos, solapes de hitos y patrones de riesgo que ya ocurrieron en otro proyecto, antes de que vuelvan a doler. La experiencia de cada proyecto alimenta a los demás.",
     },
   ] as Advantage[],
 };
@@ -335,4 +380,52 @@ export const impact = {
 export const finalCta = {
   title: "Esto es lo que te estaba intentando enseñar.",
   body: "Un PM dirige. El sistema se encarga del resto del trabajo de gestión — y lo mantiene vivo de principio a fin.",
+};
+
+// --- Cómo funciona (3 pasos + posicionamiento) ------------------------------
+export interface HowStep {
+  icon: LucideIcon;
+  title: string;
+  body: string;
+}
+
+export const howItWorks = {
+  eyebrow: "Cómo funciona",
+  title: "Describes la realidad. El sistema hace el resto.",
+  subtitle:
+    "No hay formularios que rellenar ni plantillas que mantener. El trabajo de gestión sucede en tres movimientos.",
+  steps: [
+    {
+      icon: MessageSquare,
+      title: "Tú describes",
+      body: "Cuentas en lenguaje natural lo que ha pasado: una sesión, un retraso, una decisión o una simple pregunta. Sin campos ni formatos.",
+    },
+    {
+      icon: Workflow,
+      title: "Interpreta y actúa",
+      body: "Entiende qué evidencias quedan afectadas, las actualiza en cascada y mantiene la coherencia entre todas — incluidas la versión interna y la del cliente.",
+    },
+    {
+      icon: Layers,
+      title: "Evidencias vivas",
+      body: "Recibes los documentos al día al instante, y una memoria que conserva cada decisión con su porqué. El proyecto nunca pierde el contexto.",
+    },
+  ] as HowStep[],
+  positioning: {
+    eyebrow: "Dónde está el valor",
+    lead: "El valor está en el sistema, no en el documento.",
+    body: "Un Gantt lo hace cualquiera. La diferencia está en cómo el sistema encadena cada capacidad, recuerda el proyecto entero y aplica el mismo criterio de delivery, semana tras semana.",
+    punch: "Eso es lo que no se improvisa.",
+  },
+};
+
+// --- Soberanía del dato -----------------------------------------------------
+export const dataSovereignty = {
+  title: "Tus datos, donde tú decidas.",
+  body: "El sistema corre donde tú elijas — tu propio equipo, un servidor on-premise o tu nube — y se conecta al modelo de IA que prefieras, incluido uno local. La gestión del proyecto no obliga a sacar tu información de tu perímetro.",
+  points: [
+    "Despliegue a tu medida: local, on-premise o nube",
+    "Modelo de IA a tu elección, propio o de terceros",
+    "El dato no abandona tu entorno si así lo decides",
+  ],
 };

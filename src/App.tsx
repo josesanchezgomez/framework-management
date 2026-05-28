@@ -1,6 +1,7 @@
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import Problem from "./components/Problem";
+import HowItWorks from "./components/HowItWorks";
 import Pillars from "./components/Pillars";
 import Capabilities from "./components/Capabilities";
 import WeeklyCycle from "./components/WeeklyCycle";
@@ -16,6 +17,7 @@ export default function App() {
       <main>
         <Hero />
         <Problem />
+        <HowItWorks />
         <Pillars />
         <Capabilities />
         <WeeklyCycle />

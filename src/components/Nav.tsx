@@ -3,6 +3,7 @@ import { brand } from "../data/content";
 
 const links = [
   { href: "#problema", label: "El problema" },
+  { href: "#como-funciona", label: "Cómo funciona" },
   { href: "#capacidades", label: "Capacidades" },
   { href: "#ciclo", label: "Ciclo semanal" },
   { href: "#ventajas", label: "Ventajas" },
